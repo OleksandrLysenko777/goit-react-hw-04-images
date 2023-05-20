@@ -3,6 +3,7 @@ import css from './App.module.css';
 import { fetchPhotosWithQuery, PER_PAGE } from 'services/api';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
+import Notiflix from 'notiflix';
 import Modal from './Modal/Modal';
 import Button from './Button/Button';
 import Loader from './Loader/Loader';
@@ -26,6 +27,18 @@ export const App = () => {
     setIsLoading(true);
     setPhotos([]);
     setPage(1);
+    setError(false);
+    if (inputValue.trim() === '') {
+      setIsLoading(false);
+      setError(true);
+      setAllPages(0);
+      return Notiflix.Notify.info(
+         'Please enter key words for search.'
+      )
+    }
+     if (inputValue !== 0) {    
+    Notiflix.Notify.success(`Hooray! We found images`);
+     }
   };
 
   const handleClick = () => {
